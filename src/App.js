@@ -1,7 +1,7 @@
 import React from 'react'
 import Die from './Die'
 
-import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
+import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
 
 export default function App() {
