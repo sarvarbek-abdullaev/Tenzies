@@ -1,23 +1,28 @@
 import React from 'react'
 import Die from './Die'
+import Navbar from './Navbar'
 
-import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
+import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
 
 export default function App() {
-   const [dice, setDice] = React.useState(allNewDice())
-   const [tenzises, setTenzies] = React.useState(false)
-
-   React.useEffect(() => {
-    const allHeld = dice.every(die => die.isHeld)
-    const firstValue = dice[0].value
-    const allSameValue = dice.every(die => die.value === firstValue)
-    if (allHeld && allSameValue) {
-      setTenzies(true)
-      console.log('You won')   
-    }
-  }, [dice])
   
+  const [dice, setDice] = React.useState(allNewDice())
+  
+  const [game, setGame] = React.useState(false)
+  
+  
+  const [tenzises, setTenzies] = React.useState(false)
+
+  React.useEffect(() => {
+  const allHeld = dice.every(die => die.isHeld)
+  const firstValue = dice[0].value
+  const allSameValue = dice.every(die => die.value === firstValue)
+  if (allHeld && allSameValue) {
+    setTenzies(true)  
+  }
+}, [dice])
+
   function generateNewDice() {
     return (
       {
@@ -36,11 +41,11 @@ export default function App() {
     }
     return newDice
   }
+  function gameStarted() {
+    game = true
+  }
 
-  
-  
-  function rollDice() {
-
+  function rollDice() {   
     if (!tenzises) {
       setDice(oldDice => oldDice.map(die => {
         return die.isHeld ?
@@ -61,16 +66,27 @@ export default function App() {
   const diceElements = dice.map(die => (
     <Die key={die.id}  value = {die.value} isHeld = {die.isHeld} holdDice={() => holdDice(die.id)}/>
     ))
+
+    function nameBtn() {
+      if(tenzises) {
+        return 'New Game'
+      }else {
+        return "Roll"
+      }
+    }
   
   return (
     <main>
       {tenzises && <Confetti/>}
       <h1 className="title">Tenzies</h1>
       <p className="instuctions">Roll until all dice are the same. Click each die to freeze it all its current value between rolls</p>
+      {<h3>Practice</h3>}
+      {/* {gameStarted && <h3>{}</h3>} */}
       <div className="container">
        {diceElements}
       </div>
-      <button onClick={rollDice}>{tenzises ? "New Game" :'Roll' }</button>
+      <button onClick={rollDice}>{nameBtn()}</button>
+      < Navbar/>
     </main>
   )
 }
