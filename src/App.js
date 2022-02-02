@@ -6,11 +6,7 @@ import Confetti from "react-confetti";
 import MyStopwatch from "./MyStopwatch";
 
 export default function App() {
-<<<<<<< HEAD
     const { seconds, minutes, start, pause, reset } = useStopwatch({
-=======
-    const { seconds, minutes, start, pause } = useStopwatch({
->>>>>>> e067ab34d1f71cbbe360771fd1d46eee436e6a8c
         autoStart: false,
     });
 
@@ -31,7 +27,6 @@ export default function App() {
         if (allHeld && allSameValue) {
             setTenzies(true);
             pause();
-<<<<<<< HEAD
             setGameStarted(false)
         }
     }, [dice]);
@@ -46,11 +41,6 @@ export default function App() {
     //     localStorage.setItem('recordsofTenzies', JSON.stringify(recordsofTenzies))
     // }
 
-=======
-        }
-    }, [dice]);
-
->>>>>>> e067ab34d1f71cbbe360771fd1d46eee436e6a8c
     function generateNewDice() {
         return {
             value: Math.ceil(Math.random() * 6),
@@ -153,10 +143,7 @@ export default function App() {
         }
     }
     useEffect(() => {
-<<<<<<< HEAD
         reset();
-=======
->>>>>>> e067ab34d1f71cbbe360771fd1d46eee436e6a8c
         start();
     }, [gameStarted]);
 
@@ -176,10 +163,6 @@ export default function App() {
             {gamePage && gameStarted && (
                 <MyStopwatch seconds={seconds} minutes={minutes} />
             )}
-<<<<<<< HEAD
-=======
-
->>>>>>> e067ab34d1f71cbbe360771fd1d46eee436e6a8c
             {gamePage && !gameStarted && (
                 <div style={{ textAlign: "center" }}>
                     <div style={{ fontSize: "5rem" }}>
