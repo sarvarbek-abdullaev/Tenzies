@@ -1,6 +1,5 @@
 import React from 'react'
 import Die from './Die'
-import Navbar from './Navbar'
 
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
@@ -10,7 +9,10 @@ export default function App() {
   const [dice, setDice] = React.useState(allNewDice())
   
   const [game, setGame] = React.useState(false)
-  
+  const [practice, setPractice] = React.useState(true)
+  const [records, setRecords] = React.useState(false)
+
+  const [timer, setTimer] = React.useState(false)
   
   const [tenzises, setTenzies] = React.useState(false)
 
@@ -41,16 +43,41 @@ export default function App() {
     }
     return newDice
   }
-  function gameStarted() {
-    game = true
+  function makeAllwhite() {
+    setDice(allNewDice())
+  }
+  
+  function practiceMode() {
+      setDice(allNewDice())
+      rollDice()
+      setPractice(true)
+      setGame(false)
+      setRecords(false)
+  }
+  
+  function gameMode() {
+      setPractice(false)
+      setRecords(false)
+      setGame(true)
+      setDice(allNewDice())
+      rollDice()
+  }
+
+  function recordsMode() {
+    setRecords(true)
+    setPractice(false)
+    setGame(false)
   }
 
   function rollDice() {   
     if (!tenzises) {
+      if(game) {
+        setTimer(true)
+      }
       setDice(oldDice => oldDice.map(die => {
         return die.isHeld ?
-          die:
-          generateNewDice() 
+        die:
+        generateNewDice() 
       }))
     }else {
       setTenzies(false)
@@ -78,15 +105,25 @@ export default function App() {
   return (
     <main>
       {tenzises && <Confetti/>}
-      <h1 className="title">Tenzies</h1>
-      <p className="instuctions">Roll until all dice are the same. Click each die to freeze it all its current value between rolls</p>
-      {<h3>Practice</h3>}
-      {/* {gameStarted && <h3>{}</h3>} */}
-      <div className="container">
-       {diceElements}
+      <div className='main-div'>
+        {practice && <h1 className="title">Tenzies</h1>}
+        {practice && <p className="instuctions">Roll until all dice are the same. Click each die to freeze it all its current value between rolls</p>}
       </div>
-      <button onClick={rollDice}>{nameBtn()}</button>
-      < Navbar/>
+      {practice && !records && <h3>Practice</h3>}
+      {game && !records && <h3>Here timer</h3>}
+      {!records &&<div className="container">
+       {diceElements}
+      </div>}
+      {!records && <button onClick={rollDice}>{nameBtn()}</button>}
+      
+      <div className='Navbar'>
+        <ul>
+          <li onClick={practiceMode} className={practice? 'active': ''} ><a className='navbar-icon' href='#'>Practice</a></li>
+          <li onClick={gameMode} className={game? 'active': ''}><a className='navbar-icon' href='#'>Game</a></li>
+          <li onClick={recordsMode} className={records? 'active': ''}><a className='navbar-icon' href='#'>Records</a></li>
+        </ul>
+      </div>
+    
     </main>
   )
 }

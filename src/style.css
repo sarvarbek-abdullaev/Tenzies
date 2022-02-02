@@ -82,17 +82,35 @@ main button:active {
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 @media (max-width: 576px) {
+  body {
+    background-color: #f5f5f5;
+}
   main {
     height: 100vh;
     max-width: 100%;
     overflow: hidden;
-    padding: 5rem 0 10rem 0;
+    padding: 0 0 10rem 0;
+    justify-content: start;
+    gap: 3rem;
   }
 
+  .main-div {
+    background-color: #5035FF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 0 6rem 0;
+    border-radius: 0 0 3rem 3rem;
+  }
   .instuctions {
     width: 100%;
   }
@@ -128,7 +146,8 @@ h3 {
   }
 
   .Navbar ul li {
-    padding: 1.2rem 2rem;
+    padding: 1.4rem 2rem;
+    text-align: center;
   }
 
   .navbar-icon {
