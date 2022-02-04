@@ -176,4 +176,7 @@ h3 {
   li.active a {
     color: #5035FF;
   }
+  .records-h1 {
+    font-size: 3rem;
+  }
 }

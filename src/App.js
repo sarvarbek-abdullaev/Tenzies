@@ -20,6 +20,7 @@ export default function App() {
 
     const [tenzises, setTenzies] = React.useState(false);
 
+
     React.useEffect(() => {
         const allHeld = dice.every((die) => die.isHeld);
         const firstValue = dice[0].value;
@@ -28,18 +29,16 @@ export default function App() {
             setTenzies(true);
             pause();
             setGameStarted(false)
+            updateLS(seconds)
+            
         }
     }, [dice]);
 
-
-    // const notes = JSON.parse(localStorage.getItem('notes'));
-
-    // function updateLS (a) {
-    //     const recordsofTenzies = [];
-    //     recordsofTenzies.push(a)
-
-    //     localStorage.setItem('recordsofTenzies', JSON.stringify(recordsofTenzies))
-    // }
+    function updateLS (a) {
+        const recordsofTenzies = [];
+        recordsofTenzies.push(a)
+        {gamePage && localStorage.setItem('recordsofTenzies', JSON.stringify(recordsofTenzies))}
+    }
 
     function generateNewDice() {
         return {
@@ -172,6 +171,7 @@ export default function App() {
             )}
             {!records && <div className="container">{diceElements}</div>}
             {!records && <button onClick={forBtnRoll}>{nameBtn()}</button>}
+            {records && <h1 className="records-h1">SOON NEWS</h1>}
 
             <div className="Navbar">
                 <ul>
