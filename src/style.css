@@ -92,10 +92,11 @@ h3 {
 @media (max-width: 576px) {
   body {
     background-color: #f5f5f5;
-}
+  }
   main {
     height: 100vh;
     max-width: 100%;
+    width: 100%;
     overflow: hidden;
     padding: 0 0 10rem 0;
     justify-content: start;
@@ -144,6 +145,7 @@ h3 {
     display: grid;
     grid-template: auto auto / repeat(3, 1fr);
     list-style-type: none;
+    width: 100%;
   }
 
   .Navbar ul li {
@@ -178,5 +180,30 @@ h3 {
   }
   .records-h1 {
     font-size: 3rem;
+  }
+
+  .records-ul {
+    flex: 1;
+    width: 100%;
+    padding: 0 3rem;
+  }
+
+  .records-ul header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 1rem 0;
+  }
+
+  .records-ul header li {
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid #0b2434 ;
+  }
+
+  .records-el {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 }
