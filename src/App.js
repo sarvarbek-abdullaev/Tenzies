@@ -35,9 +35,20 @@ export default function App() {
     }, [dice]);
 
     function updateLS (a) {
+        if(!gamePage) return;
+        const newRecord = {
+            time: a,
+            date: new Date().toLocaleDateString()
+        }
         const recordsofTenzies = [];
-        recordsofTenzies.push(a)
-        {gamePage && localStorage.setItem('recordsofTenzies', JSON.stringify(recordsofTenzies))}
+        const recordsOfTenziesFromLocalStorage = JSON.parse(localStorage.getItem('recordsofTenzies'))
+
+        if(recordsOfTenziesFromLocalStorage) {
+            recordsofTenzies.push(...recordsOfTenziesFromLocalStorage, newRecord)
+        }else {
+            recordsofTenzies.push(newRecord)
+        }
+        localStorage.setItem('recordsofTenzies', JSON.stringify(recordsofTenzies))
     }
 
     function generateNewDice() {
@@ -146,6 +157,45 @@ export default function App() {
         start();
     }, [gameStarted]);
 
+    const getMonthName = (date) => {
+        return date.toLocaleString('en-US', { month: 'short' });
+    }
+
+    const getScores = () => {
+        const recordsOfTenziesFromLocalStorage = JSON.parse(localStorage.getItem('recordsofTenzies'))
+        const currentDate = (date) => {
+            return new Date(date)
+        }
+        if(recordsOfTenziesFromLocalStorage) {
+            return (
+                <ul className="records-ul">
+                    <header>
+                        <li className="records-el">
+                            <p>Score</p>
+                            <p>Date</p>
+                        </li>
+                    </header>
+                    {
+                        recordsOfTenziesFromLocalStorage.map((record, index) => (
+                             (
+                                <li className="records-el" key={index}>
+                                    <p>{record.time} seconds</p>
+                                    <p>
+                                        {new Date(record.date).getDate() + " "}
+                                        {getMonthName(currentDate(record.date)) + " "}
+                                        {currentDate(record.date).getFullYear()}
+                                    </p>
+                                </li>
+                            )
+                        ))
+                    }
+                </ul>
+            )
+        }else {
+            return <li>No records yet</li>
+        }
+    }
+
     return (
         <main>
             {tenzises && <Confetti />}
@@ -171,7 +221,12 @@ export default function App() {
             )}
             {!records && <div className="container">{diceElements}</div>}
             {!records && <button onClick={forBtnRoll}>{nameBtn()}</button>}
-            {records && <h1 className="records-h1">SOON NEWS</h1>}
+            {records && (
+                <>
+                    <h1 className="records-h1">All Scores</h1>
+                    {getScores()}
+                </>
+            )}
 
             <div className="Navbar">
                 <ul>
