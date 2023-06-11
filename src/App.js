@@ -198,7 +198,11 @@ export default function App() {
 
     return (
         <main>
-            {tenzises && <Confetti />}
+            {tenzises && (
+                <>
+                    <Confetti />
+                </>
+            )}
             <div className="main-div">
                 {practice && <h1 className="title">Tenzies</h1>}
                 {practice && (
